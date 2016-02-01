@@ -8,5 +8,6 @@ dbus-daemon --system
 avahi-daemon -D
 
 bash /root/install_plugins.sh /root/.homebridge/pluginsInstallList
+mv /root/.homebridge/pluginsInstallList /root/.homebridge/pluginsInstallList.done
 
 homebridge
