@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 rm /var/run/dbus/pid #incase shutdown abruptly
 
