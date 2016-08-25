@@ -7,7 +7,10 @@ FROM alpine:3.3
 RUN apk update && apk add \
 	nodejs \
 	git \
-	avahi-dev \
+	avahi-daemon \
+	avahi-discover \
+	libnss-mdns \
+	libavahi-compat-libdnssd-dev \
 	make \
 	g++ \
 	&& rm -rf /var/cache/apk/*
