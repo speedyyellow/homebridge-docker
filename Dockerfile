@@ -1,26 +1,11 @@
 FROM phusion/baseimage:0.9.15
 
-##################################################
-# Install tools                                  #
-##################################################
+#########################################
+##         RUN INSTALL SCRIPT          ##
+#########################################
 
-RUN apt-get update && apt-get install \
-	nodejs \
-	git \
-	make \
-	gcc \
-	g++ \
-	avahi-daemon \
-	avahi-discover \
-	libnss-mdns \
-	libavahi-compat-libdnssd-dev \
-	&& apt-get clean
-
-##################################################
-# Install homebridge                             #
-##################################################
-
-RUN npm install -g homebridge
+ADD install.sh /tmp/
+RUN chmod +x /tmp/install.sh && /tmp/install.sh && rm /tmp/install.sh
 
 ##################################################
 # Start                                          #
