@@ -7,13 +7,14 @@ FROM phusion/baseimage:0.9.15
 RUN apt-get update && apt-get install \
 	nodejs \
 	git \
+	make \
+	gcc \
+	g++ \
 	avahi-daemon \
 	avahi-discover \
 	libnss-mdns \
 	libavahi-compat-libdnssd-dev \
-	make \
-	g++ \
-	&& rm -rf /var/cache/apk/*
+	&& apt-get clean
 
 ##################################################
 # Install homebridge                             #
