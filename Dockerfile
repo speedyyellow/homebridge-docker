@@ -1,10 +1,10 @@
-FROM alpine:3.3
+FROM phusion/baseimage:0.9.15
 
 ##################################################
 # Install tools                                  #
 ##################################################
 
-RUN apk update && apk add \
+RUN apt-get update && apt-get install \
 	nodejs \
 	git \
 	avahi-daemon \
