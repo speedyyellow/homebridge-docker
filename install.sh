@@ -13,6 +13,8 @@ chown -R nobody:users /home
 # Disable SSH
 rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 
+mkdir -p /var/run/dbus
+
 #########################################
 ##    REPOSITORIES AND DEPENDENCIES    ##
 #########################################
@@ -21,15 +23,17 @@ rm -rf /etc/service/sshd /etc/my_init.d/00_regen_ssh_host_keys.sh
 add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty universe multiverse"
 add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty-updates universe multiverse"
 
-apt-get update
-apt-get install	nodejs npm git make gcc g++
-apt-get install avahi-daemon avahi-discover libnss-mdns libavahi-compat-libdnssd-dev
+sudo apt-get update
+sudo apt-get install -qy git make gcc g++
+curl -sL https://deb.nodesource.com/setup_6.x | bash -
+sudo apt-get install -qy nodejs
+sudo apt-get install -qy avahi-daemon avahi-discover libnss-mdns libavahi-compat-libdnssd-dev
 
 ##################################################
 # Install homebridge                             #
 ##################################################
 
-npm install -g homebridge
+sudo npm install -g homebridge
 
 #########################################
 ##                 CLEANUP             ##
