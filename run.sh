@@ -14,4 +14,4 @@ bash /root/install_plugins.sh /root/.homebridge/pluginsInstallList
 mv /root/.homebridge/pluginsInstallList /root/.homebridge/pluginsInstallList.done
 
 # start homebridge
-homebridge
+homebridge -P /root/.homebridge/plugins
