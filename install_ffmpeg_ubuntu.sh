@@ -3,6 +3,9 @@
 # Bash script to install latest version of ffmpeg and its dependencies on Ubuntu 12.04 or 14.04
 # Inspired from https://gist.github.com/faleev/3435377
 
+# Identify the number of CPU cores
+NCPUS=`lscpu -p | egrep -v '^#' | sort -u -t, -k 2,4 | wc -l`
+
 # Remove any existing packages:
 sudo apt-get -y remove ffmpeg x264 libav-tools libvpx-dev libx264-dev
 
@@ -18,7 +21,7 @@ cd
 git clone --depth 1 git://git.videolan.org/x264
 cd x264
 ./configure --enable-static
-make
+make -j $NCPUS
 sudo checkinstall --pkgname=x264 --pkgversion="3:$(./version.sh | \
   awk -F'[" ]' '/POINT/{print $4"+git"$5}')" --backup=no --deldoc=yes \
     --fstrans=no --default
@@ -29,7 +32,7 @@ wget http://downloads.sourceforge.net/opencore-amr/fdk-aac-0.1.0.tar.gz
 tar xzvf fdk-aac-0.1.0.tar.gz
 cd fdk-aac-0.1.0
 ./configure
-make
+make -j $NCPUS
 sudo checkinstall --pkgname=fdk-aac --pkgversion="0.1.0" --backup=no \
   --deldoc=yes --fstrans=no --default
 
@@ -38,7 +41,7 @@ cd
 git clone --depth 1 https://chromium.googlesource.com/webm/libvpx 
 cd libvpx
 ./configure
-make
+make -j $NCPUS
 sudo checkinstall --pkgname=libvpx --pkgversion="1:$(date +%Y%m%d%H%M)-git" --backup=no \
   --deldoc=yes --fstrans=no --default
 
@@ -48,7 +51,7 @@ sudo checkinstall --pkgname=libvpx --pkgversion="1:$(date +%Y%m%d%H%M)-git" --ba
 cd ~/x264
 make distclean
 ./configure --enable-static
-make
+make -j $NCPUS
 sudo checkinstall --pkgname=x264 --pkgversion="3:$(./version.sh | \
   awk -F'[" ]' '/POINT/{print $4"+git"$5}')" --backup=no --deldoc=yes \
   --fstrans=no --default
@@ -57,10 +60,10 @@ sudo checkinstall --pkgname=x264 --pkgversion="3:$(./version.sh | \
 cd
 git clone --depth 1 git://source.ffmpeg.org/ffmpeg
 cd ffmpeg
-./configure --enable-gpl --enable-libfaac --enable-libmp3lame --enable-libopencore-amrnb \
+./configure --enable-gpl --enable-libmp3lame --enable-libopencore-amrnb \
   --enable-libopencore-amrwb --enable-librtmp --enable-libtheora --enable-libvorbis \
     --enable-libvpx --enable-libx264 --enable-nonfree --enable-version3 
-make
+make -j $NCPUS
 sudo checkinstall --pkgname=ffmpeg --pkgversion="5:$(date +%Y%m%d%H%M)-git" --backup=no \
   --deldoc=yes --fstrans=no --default
   hash x264 ffmpeg ffplay ffprobe
@@ -68,7 +71,7 @@ sudo checkinstall --pkgname=ffmpeg --pkgversion="5:$(date +%Y%m%d%H%M)-git" --ba
 # Optional: install qt-faststart
 # This is a useful tool if you're showing your H.264 in MP4 videos on the web. It relocates some data in the video to allow playback to begin before the file is completely downloaded. Usage: qt-faststart input.mp4 output.mp4.
 cd ~/ffmpeg
-make tools/qt-faststart
+make -j $NCPUS tools/qt-faststart
 sudo checkinstall --pkgname=qt-faststart --pkgversion="$(date +%Y%m%d%H%M)-git" --backup=no \
   --deldoc=yes --fstrans=no --default install -Dm755 tools/qt-faststart \
   /usr/local/bin/qt-faststart

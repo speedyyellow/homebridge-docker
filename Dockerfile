@@ -21,7 +21,7 @@ RUN chmod +x /tmp/install.sh
 RUN /tmp/install.sh 
 RUN rm /tmp/install.sh
 
-ADD install_ffmped_ubuntu.sh /tmp/
+ADD install_ffmpeg_ubuntu.sh /tmp/
 RUN chmod +x /tmp/install_ffmpeg_ubuntu.sh
 RUN /tmp/install_ffmpeg_ubuntu.sh 
 RUN rm /tmp/install_ffmpeg_ubuntu.sh

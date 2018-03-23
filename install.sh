@@ -24,7 +24,7 @@ add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty universe mul
 add-apt-repository "deb http://us.archive.ubuntu.com/ubuntu/ trusty-updates universe multiverse"
 
 sudo apt-get update
-sudo apt-get install -qy git make gcc g++
+sudo apt-get install -qy git make gcc g++ wget
 curl -sL https://deb.nodesource.com/setup_6.x | bash -
 sudo apt-get install -qy nodejs
 sudo apt-get install -qy avahi-daemon avahi-discover libnss-mdns libavahi-compat-libdnssd-dev
