@@ -13,5 +13,8 @@ avahi-daemon -D
 bash /root/install_plugins.sh /root/.homebridge/pluginsInstallList
 mv /root/.homebridge/pluginsInstallList /root/.homebridge/pluginsInstallList.done
 
+# update everything
+sudo npm update -g
+
 # start homebridge
 homebridge -P /root/.homebridge/plugins
